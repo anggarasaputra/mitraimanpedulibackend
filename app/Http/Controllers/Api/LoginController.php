@@ -44,6 +44,46 @@ class LoginController extends Controller
         ], 200);
     }
     
+
+    public function ceklogingoogle(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'     => 'required|email',
+            'password'  => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $donatur = Donatur::where('email', $request->email)->first();
+
+        if (!$donatur) {
+            $donatur = Donatur::where('email', $request->email)->first();
+            return response()->json([
+                'success' => false,
+                'message' => 'Login Failed!',
+            ], 401);
+        }else {
+
+            if (!$donatur || !Hash::check($request->password, $donatur->password)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Login Failed!',
+                ], 401);
+            }
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Login Berhasil!',
+                'data'    => $donatur,
+                'token'   => $donatur->createToken('authToken')->accessToken    
+            ], 200);
+
+        }
+
+       
+    }
     /**
      * logout
      *
