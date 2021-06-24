@@ -52,4 +52,5 @@ Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->
  */
 Route::get('/donation', [DonationController::class, 'index'])->middleware('auth:api');
 Route::post('/donation', [DonationController::class, 'store'])->middleware('auth:api');
+Route::get('/getdonation', [DonationController::class, 'getlistdonation']);
 Route::post('/donation/notification', [DonationController::class, 'notificationHandler']);
