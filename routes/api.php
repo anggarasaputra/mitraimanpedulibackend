@@ -26,6 +26,7 @@ Route::post('/register', [RegisterController::class, 'register']);
  * Api Login
  */
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/loginbygoogle', [LoginController::class, 'ceklogingoogle']);
 /**
  * APi Category
  */
