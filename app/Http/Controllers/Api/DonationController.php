@@ -47,7 +47,7 @@ class DonationController extends Controller
     public function getlistdonation()
     {
         //get data donations
-        $donations = Donation::with('campaign')->where('status', 'success')->paginate(50);
+        $donations = Donation::with('donatur')->where('status', 'success')->paginate(20);
 
         //return with response JSON
         return response()->json([
